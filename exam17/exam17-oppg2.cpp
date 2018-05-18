@@ -108,9 +108,11 @@ int main()   {          //  HOVEDPROGRAM:
 // ******************  DEFINISJON AV MEDLEMS-FUNKSJONER:  ******************
 // *************************************************************************
 
-Topp::Topp()  {              //  Oppgave 2A - Leser og initierer en topps data:
-
-    //   Lag innmaten
+Topp::Topp()  
+{
+    printf("Les Topp %d\n", i);
+    les("Navn", navn);
+    antallBiler = les("MaxAntallBiler", 1, MAXBILER);
 }
 
 
@@ -122,7 +124,10 @@ Topp::Topp(ifstream & inn)  {    //  Oppgave 2G - Leser ALT om en topp fra fil:
 
 void Topp::skrivStatus()  {  //  Oppgave 2B - Skriver alle HOVEDdata om toppen:
 
-    //   Lag innmaten
+    std::cout << "Navn: " << navn << '\n'
+              << "MaxAntallBiler: " << maxAntallBiler << '\n'
+              << "AntallBiler: " << antallBiler << '\n'
+              << "AntallTilskuere: " << tilskuere->noOfElements() << '\n'; 
 }
 
                                 //  Oppgave 2C - Skriver ALT om toppen
@@ -218,7 +223,12 @@ void lagTopperEllerLesFraFil()  {    //  (Ferdiglaget - Oppgave 2A og 2G)
 
 void lagTopper()  {        //  Oppgave 2A - Lager/legger initielt inn topp(er):
 
-    //   Lag innmaten
+    int valgtAntallTopper = les("Antall topper", 0, MAXTOPP);
+
+    for(int i = 1; i <= valgtAntallTopper; ++i)
+    {
+        toppene[++antallTopper] = new Topp();        
+    }
 }
 
                              //  Oppgave 2B - Skriver HOVEDdata om ALLE topper:
