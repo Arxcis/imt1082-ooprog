@@ -108,15 +108,19 @@ int main()   {          //  HOVEDPROGRAM:
 // ******************  DEFINISJON AV MEDLEMS-FUNKSJONER:  ******************
 // *************************************************************************
 
-Topp::Topp()  
+Topp::Topp()
 {
-    printf("Les Topp %d\n", i);
-    les("Navn", navn);
-    antallBiler = les("MaxAntallBiler", 1, MAXBILER);
+    les("Navn", this->navn, STRLEN);
+    this->maxAntallBiler = les("MaxAntallBiler", 1, MAXBILER);
+
+    this->antallBiler = 0;
+    this->tilskuere = new List(Sorted);
 }
 
 
-Topp::Topp(ifstream & inn)  {    //  Oppgave 2G - Leser ALT om en topp fra fil:
+Topp::Topp(ifstream & inn)  
+{    
+    //  Oppgave 2G - Leser ALT om en topp fra fil:
 
     //   Lag innmaten
 }
@@ -131,15 +135,22 @@ void Topp::skrivStatus()  {  //  Oppgave 2B - Skriver alle HOVEDdata om toppen:
 }
 
                                 //  Oppgave 2C - Skriver ALT om toppen
-void Topp::skrivAlt()  {        //               inkludert ALLE tilskuerne:
+void Topp::skrivAlt()  
+{
 
-    //   Lag innmaten
 }
 
 
-void Topp::nyTilskuer()  { // Oppgave 2D - Legger inn (om mulig) en ny tilskuer:
-                           
-    //   Lag innmaten
+void Topp::nyTilskuer()  
+{                       
+    int bobilValg = les("Har du bobil? (0 = har ikke, 1 = har)", 0, 1);
+
+    if (bobilValg == 1 && this->antallBiler == MaxAntallBiler) 
+    {
+        std::cout << "Beklager! Toppen har ikke plass til flere biler";
+        return;
+    }
+    
 }
 
                 //  Oppgave 2E - Skriver/displayer (om mulig) EN gitt tilskuer:
@@ -188,8 +199,12 @@ void skrivMeny() {                  //  Skriver alle mulige menyvalg:
 }
 
 
-char les() {                    //  Leser og upcaser ett tegn:
-    char ch;   cin >> ch;   cin.ignore();   return (toupper(ch));
+char les() 
+{                    //  Leser og upcaser ett tegn:
+    char ch;   
+    cin >> ch;   
+    cin.ignore();   
+    return (toupper(ch));
 }
 
                                 //  Leser et heltall mellom MIN og MAX:
